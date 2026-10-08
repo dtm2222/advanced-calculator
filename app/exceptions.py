@@ -11,3 +11,7 @@ class InvalidInputError(CalculatorError):
 class InvalidOperationError(CalculatorError):
     """Raised when the user enters an unsupported operation."""
     pass
+
+class ConfigurationError(CalculatorError):
+    """Raised when calculator configuration is invalid."""
+    pass

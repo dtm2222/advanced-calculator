@@ -1,5 +1,27 @@
 import pandas as pd
 
+from abc import ABC, abstractmethod
+
+class HistoryObserver(ABC):
+    """Base class for history observers."""
+
+    @abstractmethod
+    def update(self, history):
+        """Respond when calculator history changes."""
+        pass  # pragma: no cover
+
+
+class AutoSaveObserver(HistoryObserver):
+    """Automatically save history when it changes."""
+
+    def __init__(self, file_path: str):
+        self.file_path = file_path
+
+    def update(self, history):
+        """Save the updated history to a CSV file."""
+        history.save(self.file_path)
+
+
 
 class History:
     """Manage calculator history using a pandas DataFrame."""
@@ -8,6 +30,21 @@ class History:
         self.data = pd.DataFrame(
             columns=["a", "operation", "b", "result"]
         )
+
+        self.observers = []
+
+    def add_observer(self, observer: HistoryObserver):
+      """Add an observer to the observer list."""
+      self.observers.append(observer)
+
+
+    def notify_observers(self):
+     """Notify all observers that history has changed."""
+     for observer in self.observers:
+         observer.update(self)
+
+
+
 
     def add(self, a: float, operation: str, b: float, result: float):
         """Add a calculation to history."""
@@ -25,6 +62,9 @@ class History:
             [self.data, new_entry],
             ignore_index=True
         )
+
+        self.notify_observers()
+
 
     def clear(self):
         """Clear all calculation history."""

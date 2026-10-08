@@ -8,7 +8,7 @@ class Operation(ABC):
     @abstractmethod
     def execute(self, a: float, b: float) -> float:
         """Perform the operation using two numbers."""
-        pass
+        pass  # pragma: no cover
 
 
 class Addition(Operation):

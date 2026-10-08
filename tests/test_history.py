@@ -1,6 +1,5 @@
 import pytest
-from app.history import History
-
+from app.history import History, AutoSaveObserver
 
 @pytest.fixture
 def history():
@@ -55,3 +54,18 @@ def test_load_history(history, tmp_path):
     assert new_history.data.iloc[0]["operation"] == "add"
     assert new_history.data.iloc[0]["b"] == 5
     assert new_history.data.iloc[0]["result"] == 15
+
+
+def test_auto_save_observer(history, tmp_path):
+    """Test that history automatically saves when it changes."""
+
+    file_path = tmp_path / "auto_history.csv"
+
+    observer = AutoSaveObserver(file_path)
+    history.add_observer(observer)
+
+    history.add(10, "add", 5, 15)
+
+    assert file_path.exists()
+
+    
