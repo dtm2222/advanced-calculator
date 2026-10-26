@@ -58,18 +58,55 @@ class Root(Operation):
             raise ValueError("Cannot calculate the root of a negative number.")
         return math.pow(a, 1 / b)
 
+class Modulus(Operation):
+    """Calculate the remainder of division."""
+
+    def execute(self, a: float, b: float) -> float:
+        if b == 0:
+            raise ZeroDivisionError("Cannot divide by zero.")
+        return a % b
+
+
+class IntegerDivision(Operation):
+    """Calculate the integer quotient."""
+
+    def execute(self, a: float, b: float) -> float:
+        if b == 0:
+            raise ZeroDivisionError("Cannot divide by zero.")
+        return a // b
+
+
+class Percentage(Operation):
+    """Calculate a as a percentage of b."""
+
+    def execute(self, a: float, b: float) -> float:
+        if b == 0:
+            raise ZeroDivisionError("Cannot calculate percentage with zero denominator.")
+        return (a / b) * 100
+
+
+class AbsoluteDifference(Operation):
+    """Calculate the absolute difference between two numbers."""
+
+    def execute(self, a: float, b: float) -> float:
+        return abs(a - b)
+
 
 class OperationFactory:
     """Factory for creating calculator operation objects."""
 
     _operations = {
-        "add": Addition,
-        "subtract": Subtraction,
-        "multiply": Multiplication,
-        "divide": Division,
-        "power": Power,
-        "root": Root,
-    }
+    "add": Addition,
+    "subtract": Subtraction,
+    "multiply": Multiplication,
+    "divide": Division,
+    "power": Power,
+    "root": Root,
+    "modulus": Modulus,
+    "int_divide": IntegerDivision,
+    "percent": Percentage,
+    "abs_diff": AbsoluteDifference,
+}
 
     @classmethod
     def create_operation(cls, operation_name: str) -> Operation:
