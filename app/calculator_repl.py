@@ -6,6 +6,7 @@ from app.calculator_config import CalculatorConfig
 from app.input_validators import validate_number, validate_operation
 from app.history import History, AutoSaveObserver, LoggingObserver
 import logging
+from colorama import Fore, Style, init
 
 class Calculator:
     """Facade that connects the calculator components."""
@@ -127,6 +128,7 @@ class Calculator:
 def run_repl():
     """Run the calculator read-evaluate-print loop."""
 
+    init()
     calculator = Calculator()
 
     print("Welcome to the Advanced Calculator!")
@@ -150,7 +152,7 @@ def run_repl():
         # -------------------------
 
         if user_input.lower() == "help":
-         print("Available commands:")
+         print(Fore.BLUE + "Available commands:" + Style.RESET_ALL)
          print("  add <a> <b>")
          print("  subtract <a> <b>")
          print("  multiply <a> <b>")
@@ -261,10 +263,10 @@ def run_repl():
                     second_value
                 )
 
-                print(f"Result: {result}")
+                print(Fore.GREEN + f"Result: {result}" + Style.RESET_ALL)
 
             except Exception as error:
-                print(f"Error: {error}")
+                print(Fore.RED + f"Error: {error}" + Style.RESET_ALL)
 
         else:
 

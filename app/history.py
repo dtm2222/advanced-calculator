@@ -1,5 +1,6 @@
 import pandas as pd
 import logging 
+from datetime import datetime
 
 from abc import ABC, abstractmethod
 
@@ -47,8 +48,8 @@ class History:
 
     def __init__(self):
         self.data = pd.DataFrame(
-            columns=["a", "operation", "b", "result"]
-        )
+    columns=["a", "operation", "b", "result", "timestamp"]
+)
 
         self.observers = []
 
@@ -74,6 +75,7 @@ class History:
                 "operation": operation,
                 "b": b,
                 "result": result,
+                "timestamp": datetime.now().isoformat(timespec="seconds"),
             }]
         )
 
