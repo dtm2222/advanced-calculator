@@ -20,6 +20,10 @@ VALID_OPERATIONS = {
     "divide",
     "power",
     "root",
+    "modulus",
+    "int_divide",
+    "percent",
+    "abs_diff",
 }
 
 

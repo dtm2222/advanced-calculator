@@ -136,21 +136,25 @@ def run_repl():
         # -------------------------
 
         if user_input.lower() == "help":
-            print("Available commands:")
-            print("  add <a> <b>")
-            print("  subtract <a> <b>")
-            print("  multiply <a> <b>")
-            print("  divide <a> <b>")
-            print("  power <a> <b>")
-            print("  root <a> <b>")
-            print("  history")
-            print("  undo")
-            print("  redo")
-            print("  clear")
-            print("  save")
-            print("  load")
-            print("  exit")
-            continue
+         print("Available commands:")
+         print("  add <a> <b>")
+         print("  subtract <a> <b>")
+         print("  multiply <a> <b>")
+         print("  divide <a> <b>")
+         print("  power <a> <b>")
+         print("  root <a> <b>")
+         print("  modulus <a> <b>")
+         print("  int_divide <a> <b>")
+         print("  percent <a> <b>")
+         print("  abs_diff <a> <b>")
+         print("  history")
+         print("  undo")
+         print("  redo")
+         print("  clear")
+         print("  save")
+         print("  load")
+         print("  exit")
+         continue
 
         # -------------------------
         # HISTORY

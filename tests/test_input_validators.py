@@ -18,13 +18,22 @@ def test_validate_invalid_number():
 
 
 def test_validate_operation():
-    """Test that valid operations are accepted."""
-    assert validate_operation("add") == "add"
-    assert validate_operation("subtract") == "subtract"
-    assert validate_operation("multiply") == "multiply"
-    assert validate_operation("divide") == "divide"
-    assert validate_operation("power") == "power"
-    assert validate_operation("root") == "root"
+    """Test that all supported operations are accepted."""
+    operations = [
+        "add",
+        "subtract",
+        "multiply",
+        "divide",
+        "power",
+        "root",
+        "modulus",
+        "int_divide",
+        "percent",
+        "abs_diff",
+    ]
+
+    for operation in operations:
+        assert validate_operation(operation) == operation
 
 
 def test_validate_operation_case_insensitive():
