@@ -16,6 +16,13 @@ class CalculatorConfig:
             "history.csv"
         )
 
+        
+        self.log_file = os.getenv(
+            "CALCULATOR_LOG_FILE",
+            "calculator.log"
+        )
+
+
         self.auto_save = os.getenv(
             "CALCULATOR_AUTO_SAVE",
             "true"

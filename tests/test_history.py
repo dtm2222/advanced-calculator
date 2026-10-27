@@ -68,4 +68,18 @@ def test_auto_save_observer(history, tmp_path):
 
     assert file_path.exists()
 
-    
+
+def test_logging_observer(caplog):
+    """Test that LoggingObserver records calculations."""
+    import logging
+    from app.history import History, LoggingObserver
+
+    history = History()
+    history.add_observer(LoggingObserver())
+
+    with caplog.at_level(logging.INFO):
+        history.add(5, "add", 3, 8)
+
+    assert "Calculation: 5" in caplog.text
+    assert "add" in caplog.text
+    assert "8" in caplog.text

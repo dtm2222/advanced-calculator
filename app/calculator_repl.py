@@ -4,7 +4,8 @@ from app.history import History, AutoSaveObserver
 from app.calculator_memento import MementoManager
 from app.calculator_config import CalculatorConfig
 from app.input_validators import validate_number, validate_operation
-
+from app.history import History, AutoSaveObserver, LoggingObserver
+import logging
 
 class Calculator:
     """Facade that connects the calculator components."""
@@ -13,11 +14,24 @@ class Calculator:
         self.config = CalculatorConfig()
         self.history = History()
         self.memento_manager = MementoManager()
+       
+        logging.basicConfig(
+            filename=self.config.log_file,
+            level=logging.INFO,
+            format="%(asctime)s - %(levelname)s - %(message)s",
+            force=True
+        )
+
 
         # Add the auto-save observer if auto-save is enabled.
         if self.config.auto_save:
             observer = AutoSaveObserver(self.config.history_file)
             self.history.add_observer(observer)
+
+        
+        # Register the logging observer to record calculations.
+        self.history.add_observer(LoggingObserver())
+  
 
     def calculate(
         self,

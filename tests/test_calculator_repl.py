@@ -1,5 +1,5 @@
 import builtins
-
+from app.history import LoggingObserver
 from app.calculator_repl import Calculator, run_repl
 
 
@@ -209,4 +209,5 @@ def test_calculator_without_auto_save(monkeypatch, tmp_path):
     calculator = Calculator()
 
     assert calculator.config.auto_save is False
-    assert calculator.history.observers == []
+    assert len(calculator.history.observers) == 1
+    assert isinstance(calculator.history.observers[0], LoggingObserver)

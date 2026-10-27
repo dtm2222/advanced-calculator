@@ -1,4 +1,5 @@
 import pandas as pd
+import logging 
 
 from abc import ABC, abstractmethod
 
@@ -21,6 +22,24 @@ class AutoSaveObserver(HistoryObserver):
         """Save the updated history to a CSV file."""
         history.save(self.file_path)
 
+
+class LoggingObserver(HistoryObserver):
+    """Log the latest calculation when history changes."""
+
+    def update(self, history):
+        """Record the latest calculation in the application log."""
+        if history.data.empty:
+            return
+
+        latest = history.data.iloc[-1]
+
+        logging.info(
+            "Calculation: %s %s %s = %s",
+            latest["a"],
+            latest["operation"],
+            latest["b"],
+            latest["result"]
+        )
 
 
 class History:
